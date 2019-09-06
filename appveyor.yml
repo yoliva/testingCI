@@ -1,0 +1,9 @@
+deploy:
+  provider: FTP
+  protocol: ftps
+  host: ftp://yoliva@testingci.somee.com/
+  username: yoliva
+  password:
+    secure: ScU21WLvlMteb54kEGhoaA==
+  folder: wwwroot
+  artifact: /.*\.nupkg/
