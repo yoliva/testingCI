@@ -1,6 +1,6 @@
 using System;
 
-namespace ciTest.Models
+namespace testingCI.Web.Models
 {
     public class ErrorViewModel
     {

@@ -1,9 +1,49 @@
+version: 0.9.{build}-{branch}
+os: Visual Studio 2017
+configuration: Release
+environment:
+  CompileViews: true
+skip_tags: true
+shallow_clone: true
+clone_depth: 1
+
+before_build:
+  - dotnet --info
+  - dotnet restore
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+cache:
+  - '%USERPROFILE%\.nuget\packages'
+  - '%USERPROFILE%\.librarymanager\cdnjs'
+  - '%USERPROFILE%\.librarymanager\unpkg'
+
+artifacts:
+  - path: artifacts
+    name: web-app.zip
+
+build:
+  project: ciSetupTesting.sln
+  parallel: true
+  verbosity: minimal
+  publish_wap: true
+
+after_build:
+  - dotnet publish --output %appveyor_build_folder%\artifacts --configuration %configuration% .\src\testingCI.Web --version-suffix %APPVEYOR_BUILD_NUMBER%
+
 deploy:
   provider: FTP
-  protocol: ftps
-  host: ftp://yoliva@testingci.somee.com/
+  protocol: ftp
+  host: testingci.somee.com
   username: yoliva
   password:
     secure: ScU21WLvlMteb54kEGhoaA==
-  folder: wwwroot
-  artifact: /.*\.nupkg/
+  folder: www.testingCI.somee.com
+  application: web-app.zip

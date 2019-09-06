@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ciTest.Models;
+using testingCI.Web.Models;
 
-namespace ciTest.Controllers
+namespace testingCI.Web.Controllers
 {
     public class HomeController : Controller
     {
